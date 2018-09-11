@@ -41,5 +41,7 @@ client
     });
 
 app.get('/annotate', (req, res) => {
-    res.send(text);
+    res.send({
+        "text" : text
+    });
 });
