@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
+app.use(cors());
+
+app.use(bodyParser.json());
 
 app.use(express.static(__dirname+'/client/dist'));
 
