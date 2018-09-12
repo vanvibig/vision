@@ -46,7 +46,7 @@ export class AnnotateComponent implements OnInit {
         // for (let i = 0; i < this.myFiles.length; i++) {
         frmData.append('sampleFile', this.myFiles[0]);
         // }
-        this.http.post<any>('http://localhost:8080/annotate-by-image', frmData).subscribe(
+        this.http.post<any>('https://vision-216016.appspot.com/annotate-by-image', frmData).subscribe(
             res => {
                 this.text = res.text.text.toString();
                 // console.log(JSON.stringify(res.text.pages[0].blocks[0].paragraphs[0].words[0].text));
@@ -56,7 +56,7 @@ export class AnnotateComponent implements OnInit {
     }
 
     annotateByLink() {
-        this.http.post<any>('http://localhost:8080/annotate-by-link', {"link": this.link}).subscribe(
+        this.http.post<any>('https://vision-216016.appspot.com/annotate-by-link', {"link": this.link}).subscribe(
             res => {
                 this.text = res.text.text.toString();
                 // console.log(JSON.stringify(res.text.pages[0].blocks[0].paragraphs[0].words[0].text));
