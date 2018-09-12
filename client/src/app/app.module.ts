@@ -5,14 +5,19 @@ import {AppComponent} from './app.component';
 import {AnnotateComponent} from './annotate/annotate.component';
 import {HttpClientModule} from "@angular/common/http";
 
+import { FacebookModule } from 'ngx-facebook';
+import { FacebookCommentComponent } from './facebook-comment/facebook-comment.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    AnnotateComponent
+    AnnotateComponent,
+    FacebookCommentComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FacebookModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
