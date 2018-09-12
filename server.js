@@ -73,7 +73,7 @@ app.post('/annotate-by-image', function (req, res) {
                 const fullTextAnnotation = results[0].fullTextAnnotation;
                 console.log(`Full text: ${fullTextAnnotation.text}`);
                 res.send({
-                    "text": fullTextAnnotation.text
+                    "text": fullTextAnnotation
                 });
             })
             .catch(err => {
@@ -89,7 +89,7 @@ app.post('/annotate-by-link', function (req, res) {
             const fullTextAnnotation = results[0].fullTextAnnotation;
             // console.log(`Full text: ${fullTextAnnotation.text}`);
             res.send({
-                "text": fullTextAnnotation.text
+                "text": fullTextAnnotation
             });
         })
         .catch(err => {

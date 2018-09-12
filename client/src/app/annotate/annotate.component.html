@@ -1,14 +1,16 @@
 <p>
-  annotate works!
+    annotate works!
 </p>
 <div>
+    <h3>Delected by image</h3>
     <input type="file" id="file" name="sampleFile" (change)="getFileDetails($event)">
     <button type="button" (click)="uploadFiles()">Detect Text</button>
 </div>
 <div>
+    <h3>Delected by link of image</h3>
     <input type="text" id="text" name="link" [(ngModel)]="link">
     <button type="button" (click)="annotateByLink()">Detect Text</button>
 </div>
-<p>
-    {{ text }}
-</p>
+<div style="white-space: pre-line">
+    {{text}}
+</div>

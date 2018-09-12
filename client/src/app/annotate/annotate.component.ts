@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Pipe} from '@angular/core';
 import {AnnotateService} from "../shared/annotate.service";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-annotate',
@@ -47,7 +48,9 @@ export class AnnotateComponent implements OnInit {
         // }
         this.http.post<any>('http://localhost:8080/annotate-by-image', frmData).subscribe(
             res => {
-                this.text = res.text.toString();
+                this.text = res.text.text.toString();
+                // console.log(JSON.stringify(res.text.pages[0].blocks[0].paragraphs[0].words[0].text));
+                // console.log(JSON.stringify(res.text.text.toString()));
             }
         );
     }
@@ -55,9 +58,22 @@ export class AnnotateComponent implements OnInit {
     annotateByLink() {
         this.http.post<any>('http://localhost:8080/annotate-by-link', {"link": this.link}).subscribe(
             res => {
-                this.text = res.text.toString();
+                this.text = res.text.text.toString();
+                // console.log(JSON.stringify(res.text.pages[0].blocks[0].paragraphs[0].words[0].text));
+                // console.log(JSON.stringify(res.text.text.toString()));
             }
         );
     }
 
+}
+
+Pipe({name: 'safeHtml'})
+export class Safe {
+    constructor(private sanitizer:DomSanitizer){}
+
+    transform(style) {
+        return this.sanitizer.bypassSecurityTrustStyle(style);
+        // return this.sanitizer.bypassSecurityTrustHtml(style);
+        // return this.sanitizer.bypassSecurityTrustXxx(style); - see docs
+    }
 }
