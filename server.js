@@ -3,7 +3,6 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const formidable = require('formidable');
 const fs = require('fs');
 const fileUpload = require('express-fileupload');
 
