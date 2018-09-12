@@ -21,4 +21,8 @@ export class AnnotateComponent implements OnInit {
         );
     }
 
+    upload(event) {
+
+    }
+
 }
