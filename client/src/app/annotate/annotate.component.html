@@ -2,7 +2,12 @@
   annotate works!
 </p>
 <div>
-    <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="upload($event)"></p-fileUpload>
+    <input type="file" id="file" name="sampleFile" (change)="getFileDetails($event)">
+    <button type="button" (click)="uploadFiles()">Detect Text</button>
+</div>
+<div>
+    <input type="text" id="text" name="link" [(ngModel)]="link">
+    <button type="button" (click)="annotateByLink()">Detect Text</button>
 </div>
 <p>
     {{ text }}

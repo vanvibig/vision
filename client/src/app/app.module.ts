@@ -9,6 +9,7 @@ import {FacebookModule} from 'ngx-facebook';
 import {FacebookCommentComponent} from './facebook-comment/facebook-comment.component';
 
 import {FileUploadModule} from 'primeng/fileupload';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import {FileUploadModule} from 'primeng/fileupload';
         BrowserModule,
         HttpClientModule,
         FileUploadModule,
+        FormsModule,
         FacebookModule.forRoot()
     ],
     providers: [],

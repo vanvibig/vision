@@ -11,6 +11,6 @@ export class AnnotateService {
     }
 
     getAnnotate(): Observable<any> {
-        return this.http.get<any>('https://vision-216016.appspot.com/annotate/');
+        return this.http.get<any>('http://localhost:8080/annotate/');
     }
 }

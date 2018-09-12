@@ -32,11 +32,11 @@ config = {
 };
 const client = new vision.ImageAnnotatorClient(config);
 
-//
-// // const fileName = 'Local image file, e.g. /path/to/image.png';
-// fileName = './resources/block-of-text.png';
-// // Read a local image as a text document
-//
+
+// const fileName = 'Local image file, e.g. /path/to/image.png';
+// fileName = 'https://i.ytimg.com/vi/0cq275P99JY/maxresdefault.jpg';
+// Read a local image as a text document
+
 // text = '';
 //
 // client
@@ -60,7 +60,7 @@ app.get('/upload', (req, res) => {
     res.sendFile(path.join(__dirname + '/test.html'));
 });
 
-app.post('/annotate', function(req, res) {
+app.post('/annotate-by-image', function (req, res) {
     if (!req.files)
         return res.status(400).send('No files were uploaded.');
     else {
@@ -71,7 +71,7 @@ app.post('/annotate', function(req, res) {
             .documentTextDetection(fileName)
             .then(results => {
                 const fullTextAnnotation = results[0].fullTextAnnotation;
-                // console.log(`Full text: ${fullTextAnnotation.text}`);
+                console.log(`Full text: ${fullTextAnnotation.text}`);
                 res.send({
                     "text": fullTextAnnotation.text
                 });
@@ -80,11 +80,21 @@ app.post('/annotate', function(req, res) {
                 console.error('ERROR:', err);
             });
     }
+});
 
-    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.sampleFile;
-
-    // Use the mv() method to place the file somewhere on your server
+app.post('/annotate-by-link', function (req, res) {
+    client
+        .documentTextDetection(req.body.link)
+        .then(results => {
+            const fullTextAnnotation = results[0].fullTextAnnotation;
+            // console.log(`Full text: ${fullTextAnnotation.text}`);
+            res.send({
+                "text": fullTextAnnotation.text
+            });
+        })
+        .catch(err => {
+            console.error('ERROR:', err);
+        });
 });
 
 app.listen(PORT, () => {

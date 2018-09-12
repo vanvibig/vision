@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AnnotateService} from "./annotate.service";
+import {AnnotateService} from "../shared/annotate.service";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 
 @Component({
     selector: 'app-annotate',
@@ -9,20 +10,54 @@ import {AnnotateService} from "./annotate.service";
 export class AnnotateComponent implements OnInit {
 
     text: any;
+    sMsg: any;
+    myFiles: any = [];
+    urls: any = [];
+    myFileNames: any = [];
+    link: string;
 
-    constructor(private annotateService: AnnotateService) {
+    constructor(
+        private annotateService: AnnotateService,
+        private http: HttpClient) {
     }
 
     ngOnInit() {
-        this.annotateService.getAnnotate().subscribe(
+    }
+
+    getFileDetails(e) {
+        // console.log (e.target.files);
+        for (let i = 0; i < e.target.files.length; i++) {
+            var reader = new FileReader();
+            reader.readAsDataURL(e.target.files[i]); // read file as data url
+            reader.onload = e => {
+                // called once readAsDataURL is completed
+                // this.urls.push(e.target.result);
+            };
+            this.myFiles.push(e.target.files[i]);
+            this.myFileNames.push(e.target.files[i].name);
+        }
+
+        this.urls = [];
+    }
+
+    uploadFiles() {
+        const frmData = new FormData();
+        // for (let i = 0; i < this.myFiles.length; i++) {
+        frmData.append('sampleFile', this.myFiles[0]);
+        // }
+        this.http.post<any>('http://localhost:8080/annotate-by-image', frmData).subscribe(
             res => {
-                this.text = res.text;
+                this.text = res.text.toString();
             }
         );
     }
 
-    upload(event) {
-
+    annotateByLink() {
+        this.http.post<any>('http://localhost:8080/annotate-by-link', {"link": this.link}).subscribe(
+            res => {
+                this.text = res.text.toString();
+            }
+        );
     }
 
 }
